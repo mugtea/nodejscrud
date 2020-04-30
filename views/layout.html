@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <title>
+        Index
+    </title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/site.css" type="text/html">
+</head>
+
+<body style="margin: 2%;">
+    <div class="col-md-12">
+        <div class="row">
+            {% block content %} {% endblock %}
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/jquery-2.2.2.js"></script>
+    <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+
+
+    <script>
+        $(document).ready()
+        //showing data to edit modal     
+        $('#mytable').on('click', '.edit', function () {
+            var id = $(this).data('id');
+            var nama = $(this).data('nama');
+            var alamat = $(this).data('alamat');
+            var pekerjaan = $(this).data('pekerjaan');
+            $('#myModal').modal('show');
+            $('#txtId').val(id);
+            $('#txtNama').val(nama);
+            $('#txtAlamat').val(alamat);
+            $('#txtPekerjaan').val(pekerjaan);
+        });
+
+        function clearInputModal() {
+            $('#txtNama').val('');
+            $('#txtAlamat').val('');
+            $('#txtPekerjaan').val('');
+        }
+
+        //showing delete record modal
+        $('#mytable').on('click', '.delete', function () {
+            var product_id = $(this).data('id');
+            localStorage.setItem('productid', product_id);
+            $('#deleteModal').modal('show');
+        });
+
+        function deleteData(id){
+            var id = localStorage.getItem('productid');
+            location.href ="/api/delete?id=" + id;
+        }
+    </script>
+</body>
+
+</html>
